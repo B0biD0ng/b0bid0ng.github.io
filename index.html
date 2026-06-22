@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+<html lang="sk">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>B0biD0ng · Portfolio</title>
+  <link rel="icon" href="https://avatars.githubusercontent.com/u/81963237?v=4" />
+  <style>
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+    :root {
+      --bg: #0d1117;
+      --surface: #161b22;
+      --surface2: #21262d;
+      --border: #30363d;
+      --text: #e6edf3;
+      --muted: #8b949e;
+      --accent: #58a6ff;
+      --accent2: #3fb950;
+      --accent3: #d2a8ff;
+      --tag-bg: #1f3451;
+      --tag-text: #79c0ff;
+    }
+
+    body {
+      background: var(--bg);
+      color: var(--text);
+      font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', system-ui, sans-serif;
+      font-size: 16px;
+      line-height: 1.6;
+      min-height: 100vh;
+    }
+
+    /* ── Header / Hero ─────────────────────────────── */
+    header {
+      border-bottom: 1px solid var(--border);
+      padding: 60px 24px 48px;
+      text-align: center;
+    }
+
+    .avatar {
+      width: 120px;
+      height: 120px;
+      border-radius: 50%;
+      border: 3px solid var(--border);
+      margin: 0 auto 20px;
+      display: block;
+      object-fit: cover;
+    }
+
+    header h1 {
+      font-size: 2rem;
+      font-weight: 700;
+      letter-spacing: -0.5px;
+      margin-bottom: 6px;
+    }
+
+    .tagline {
+      color: var(--muted);
+      font-size: 1rem;
+      max-width: 480px;
+      margin: 0 auto 20px;
+    }
+
+    /* ── Edit hints ───────────────────────────────── */
+    .edit-hint {
+      display: inline-block;
+      background: #2d1a00;
+      color: #e3a24a;
+      font-size: 0.75rem;
+      padding: 2px 8px;
+      border-radius: 4px;
+      cursor: pointer;
+      border: 1px dashed #a06020;
+      transition: background 0.15s;
+    }
+    .edit-hint:hover { background: #3d2a00; }
+
+    .social-links {
+      display: flex;
+      gap: 12px;
+      justify-content: center;
+      flex-wrap: wrap;
+      margin-top: 20px;
+    }
+
+    .social-links a {
+      color: var(--muted);
+      text-decoration: none;
+      font-size: 0.875rem;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding: 6px 14px;
+      border: 1px solid var(--border);
+      border-radius: 6px;
+      transition: color 0.15s, border-color 0.15s;
+    }
+    .social-links a:hover { color: var(--text); border-color: var(--muted); }
+
+    /* ── Layout ───────────────────────────────────── */
+    main {
+      max-width: 900px;
+      margin: 0 auto;
+      padding: 48px 24px 80px;
+    }
+
+    section { margin-bottom: 56px; }
+
+    section > h2 {
+      font-size: 1.1rem;
+      font-weight: 600;
+      color: var(--muted);
+      text-transform: uppercase;
+      letter-spacing: 0.08em;
+      margin-bottom: 20px;
+      padding-bottom: 10px;
+      border-bottom: 1px solid var(--border);
+    }
+
+    /* ── About ────────────────────────────────────── */
+    .about-box {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 24px;
+      line-height: 1.8;
+      color: var(--text);
+    }
+
+    .about-box p { margin-bottom: 12px; }
+    .about-box p:last-child { margin-bottom: 0; }
+
+    /* ── Skills ───────────────────────────────────── */
+    .skill-grid {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+    }
+
+    .skill-badge {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 20px;
+      padding: 5px 14px;
+      font-size: 0.875rem;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+
+    .dot {
+      width: 8px;
+      height: 8px;
+      border-radius: 50%;
+      flex-shrink: 0;
+    }
+
+    /* ── Project cards ────────────────────────────── */
+    .cards {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    .card {
+      background: var(--surface);
+      border: 1px solid var(--border);
+      border-radius: 10px;
+      padding: 20px;
+      text-decoration: none;
+      color: inherit;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+      transition: border-color 0.15s, background 0.15s;
+    }
+    .card:hover {
+      border-color: var(--accent);
+      background: var(--surface2);
+    }
+
+    .card-top {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      gap: 8px;
+    }
+
+    .card-name {
+      font-weight: 600;
+      font-size: 0.975rem;
+      color: var(--accent);
+    }
+
+    .repo-icon {
+      flex-shrink: 0;
+      opacity: 0.5;
+    }
+
+    .card-desc {
+      font-size: 0.875rem;
+      color: var(--muted);
+      flex: 1;
+    }
+
+    .card-footer {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      font-size: 0.8rem;
+      color: var(--muted);
+      margin-top: auto;
+    }
+
+    .lang-dot {
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      display: inline-block;
+      margin-right: 4px;
+      vertical-align: middle;
+    }
+
+    /* Contribution badge */
+    .contrib-badge {
+      font-size: 0.7rem;
+      background: #1a2a1a;
+      color: var(--accent2);
+      border: 1px solid #2a4a2a;
+      border-radius: 4px;
+      padding: 2px 7px;
+      flex-shrink: 0;
+    }
+
+    /* ── Footer ───────────────────────────────────── */
+    footer {
+      border-top: 1px solid var(--border);
+      text-align: center;
+      padding: 28px 24px;
+      color: var(--muted);
+      font-size: 0.85rem;
+    }
+
+    footer a { color: var(--accent); text-decoration: none; }
+    footer a:hover { text-decoration: underline; }
+  </style>
+</head>
+<body>
+
+<!-- ══════════════ HERO ══════════════ -->
+<header>
+  <img
+    class="avatar"
+    src="https://avatars.githubusercontent.com/u/81963237?v=4"
+    alt="B0biD0ng avatar"
+  />
+  <h1>B0biD0ng</h1>
+  <!-- ✏️ ZMEŇ: napíš svoju krátku prezentáciu -->
+  <p class="tagline">
+    Študent informatiky · Záujemca o C++, Javu a embedded systémy
+    <br><span class="edit-hint" title="Toto uprav v HTML súbore">✏️ uprav tento text</span>
+  </p>
+
+  <div class="social-links">
+    <a href="https://github.com/B0biD0ng" target="_blank" rel="noopener">
+      <!-- GitHub icon -->
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.167 6.839 9.49.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.604-3.369-1.342-3.369-1.342-.454-1.155-1.11-1.463-1.11-1.463-.908-.62.069-.607.069-.607 1.004.07 1.532 1.032 1.532 1.032.892 1.529 2.341 1.087 2.91.832.091-.646.35-1.086.636-1.336-2.22-.253-4.555-1.11-4.555-4.943 0-1.091.39-1.984 1.03-2.682-.104-.253-.447-1.27.097-2.646 0 0 .84-.269 2.75 1.026A9.578 9.578 0 0 1 12 6.836a9.59 9.59 0 0 1 2.504.337c1.909-1.295 2.748-1.026 2.748-1.026.546 1.376.202 2.393.099 2.646.641.698 1.028 1.591 1.028 2.682 0 3.841-2.337 4.687-4.565 4.935.359.309.678.919.678 1.852 0 1.336-.012 2.415-.012 2.741 0 .267.18.579.688.481C19.138 20.164 22 16.418 22 12c0-5.523-4.477-10-10-10z"/>
+      </svg>
+      GitHub
+    </a>
+    <!-- ✏️ PRIDAJ ďalšie linky: LinkedIn, email, atď. -->
+    <a href="mailto:tvoj@email.com">
+      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true">
+        <rect x="2" y="4" width="20" height="16" rx="2"/><path d="m2 7 10 7 10-7"/>
+      </svg>
+      tvoj@email.com <span class="edit-hint">✏️</span>
+    </a>
+  </div>
+</header>
+
+<main>
+
+  <!-- ══════════════ O MNE ══════════════ -->
+  <section id="about">
+    <h2>O mne</h2>
+    <div class="about-box">
+      <!-- ✏️ ZMEŇ: napíš o sebe -->
+      <p>Ahoj! Som <strong>B0biD0ng</strong>, študent so záujmom o programovanie a vývoj softvéru. <span class="edit-hint">✏️ uprav tento odsek</span></p>
+      <p>Zaujímam sa o … <span class="edit-hint">✏️ doplň záujmy</span></p>
+      <p>Momentálne študujem / pracujem na … <span class="edit-hint">✏️ škola / práca</span></p>
+    </div>
+  </section>
+
+  <!-- ══════════════ ZRUČNOSTI ══════════════ -->
+  <section id="skills">
+    <h2>Technológie &amp; nástroje</h2>
+    <div class="skill-grid">
+      <!-- ✏️ Pridaj/odoberaj zručnosti podľa seba -->
+      <span class="skill-badge"><span class="dot" style="background:#555">​</span>C++</span>
+      <span class="skill-badge"><span class="dot" style="background:#b07219">​</span>Java</span>
+      <span class="skill-badge"><span class="dot" style="background:#e34c26">​</span>Tcl</span>
+      <span class="skill-badge"><span class="dot" style="background:#3572A5">​</span>Python <span class="edit-hint">✏️</span></span>
+      <span class="skill-badge"><span class="dot" style="background:#f1e05a">​</span>JavaScript <span class="edit-hint">✏️</span></span>
+      <span class="skill-badge"><span class="dot" style="background:#555">​</span>Git &amp; GitHub</span>
+      <span class="skill-badge"><span class="dot" style="background:#555">​</span>Linux</span>
+    </div>
+  </section>
+
+  <!-- ══════════════ MOJE PROJEKTY ══════════════ -->
+  <section id="projects">
+    <h2>Moje projekty</h2>
+    <div class="cards">
+
+      <a class="card" href="https://github.com/B0biD0ng/BPC-PC1T" target="_blank" rel="noopener">
+        <div class="card-top">
+          <span class="card-name">BPC-PC1T</span>
+          <svg class="repo-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <!-- ✏️ doplň popis -->
+        <p class="card-desc">Cvičenia a zadania z predmetu BPC-PC1T. <span class="edit-hint">✏️ popis</span></p>
+        <div class="card-footer">
+          <span><span class="lang-dot" style="background:#555"></span>C++</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/B0biD0ng/BPC-PC2T-PROJECT" target="_blank" rel="noopener">
+        <div class="card-top">
+          <span class="card-name">BPC-PC2T-PROJECT</span>
+          <svg class="repo-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <p class="card-desc">Project pre školský predmet — otvorené na vlastné použitie.</p>
+        <div class="card-footer">
+          <span><span class="lang-dot" style="background:#b07219"></span>Java</span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/B0biD0ng/DE1-Repozitar" target="_blank" rel="noopener">
+        <div class="card-top">
+          <span class="card-name">DE1-Repozitar</span>
+          <svg class="repo-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 19.5A2.5 2.5 0 0 1 6.5 17H20"/><path d="M6.5 2H20v20H6.5A2.5 2.5 0 0 1 4 19.5v-15A2.5 2.5 0 0 1 6.5 2z"/></svg>
+        </div>
+        <!-- ✏️ doplň popis -->
+        <p class="card-desc">Repozitár k predmetu DE1 — digitálna elektronika. <span class="edit-hint">✏️ popis</span></p>
+        <div class="card-footer">
+          <span><span class="lang-dot" style="background:#e7b96b"></span>Tcl</span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+  <!-- ══════════════ CONTRIBUTIONS ══════════════ -->
+  <section id="contributions">
+    <h2>Projekty, kde som prispel</h2>
+    <div class="cards">
+
+      <!-- ✏️ PRIDAJ projekty kde si mal contribution — zmeň URL, názov a popis -->
+      <a class="card" href="https://github.com/AUTOR/REPOZITAR" target="_blank" rel="noopener">
+        <div class="card-top">
+          <span class="card-name">Názov projektu <span class="edit-hint">✏️</span></span>
+          <span class="contrib-badge">contributor</span>
+        </div>
+        <p class="card-desc">Krátky popis čoho sa projekt týka a čím si prispel. <span class="edit-hint">✏️ doplň</span></p>
+        <div class="card-footer">
+          <span><span class="lang-dot" style="background:#555"></span>Jazyk <span class="edit-hint">✏️</span></span>
+        </div>
+      </a>
+
+      <a class="card" href="https://github.com/AUTOR/REPOZITAR2" target="_blank" rel="noopener">
+        <div class="card-top">
+          <span class="card-name">Ďalší projekt <span class="edit-hint">✏️</span></span>
+          <span class="contrib-badge">contributor</span>
+        </div>
+        <p class="card-desc">Popis projektu a tvoj príspevok. <span class="edit-hint">✏️ doplň</span></p>
+        <div class="card-footer">
+          <span><span class="lang-dot" style="background:#b07219"></span>Jazyk <span class="edit-hint">✏️</span></span>
+        </div>
+      </a>
+
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <p>Vyrobené s ❤️ · <a href="https://github.com/B0biD0ng" target="_blank" rel="noopener">github.com/B0biD0ng</a></p>
+</footer>
+
+</body>
+</html>
